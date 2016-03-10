@@ -12,7 +12,7 @@
  *
  */
 
-
+;
 int main() {
 
     // create the window
@@ -25,9 +25,9 @@ int main() {
     myGrid.setPosition(0, 800);
     myGrid.setScale(sf::Vector2f(80,-80));
 
+    sf::Clock clock;
 
-
-    for(int i = 0; i < 1; i++){myGrid.updateGrid();}
+   // for(int i = 0; i < 41; i++){myGrid.updateGrid();}
 
     // run the program as long as the window is open
     while (window.isOpen())
@@ -41,6 +41,11 @@ int main() {
                 window.close();
         }
 
+        if(clock.getElapsedTime().asSeconds() > 2){
+            myGrid.updateGrid();
+            clock.restart();
+        }
+
         // clear the window with black color
         window.clear(sf::Color::Black);
 
@@ -51,8 +56,6 @@ int main() {
         // end the current frame
         window.display();
     }
-
-
 
 
     std::cout << "oops";
