@@ -56,8 +56,8 @@ std::vector< sf::Vertex > dataManager::getNextReading() {
 
         sf::Vector2f coords;
 
-        coords.x = (toProcess.front().getPos().x + tmpVect[i] * cos(M_PI/180 * ((i*45)) + toProcess.front().getAngle()) );
-        coords.y = (toProcess.front().getPos().y + tmpVect[i] * sin(M_PI/180 * ((i*45)) + toProcess.front().getAngle()) );
+        coords.x = (float) (toProcess.front().getPos().x + tmpVect[i] * cos(M_PI / 180 * ((i * 45)) + toProcess.front().getAngle()) );
+        coords.y = (float) (toProcess.front().getPos().y + tmpVect[i] * sin(M_PI / 180 * ((i * 45)) + toProcess.front().getAngle()) );
 
         sf::Vertex endPoint(coords);
         endPoint.color = sf::Color::Red;
