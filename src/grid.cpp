@@ -14,7 +14,6 @@ gridSize(100){
     //TODO: Hardcoded for now but could easily be a function or overloaded constructor
     data.readData("resources/poses.txt", "resources/ranges.txt");
 
-
     straightLineReadings.setPrimitiveType(sf::Lines);
     //setUpBackground();
 

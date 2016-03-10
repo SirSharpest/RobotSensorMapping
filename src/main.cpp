@@ -22,6 +22,8 @@ int main() {
     grid myGrid;
 
 
+    for(int i = 0; i < 41; i++){myGrid.updateGrid();}
+
     //Make bigger but rotate
     myGrid.setPosition(0, 800);
     myGrid.setScale(sf::Vector2f(80,-80));
@@ -43,10 +45,10 @@ int main() {
                 window.close();
         }
 
-        if(clock.getElapsedTime().asSeconds() > 2){
+        /*if(clock.getElapsedTime().asSeconds() > 2){
             myGrid.updateGrid();
             clock.restart();
-        }
+        }*/
 
         // clear the window with black color
         window.clear(sf::Color::Black);

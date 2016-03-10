@@ -53,7 +53,6 @@ std::vector< sf::Vertex > dataManager::getNextReading() {
         sf::Vertex startPoint(sf::Vector2f(toProcess.front().getPos().x, toProcess.front().getPos().y));
         startPoint.color = sf::Color::Green;
 
-        tmpLines.push_back(startPoint);
 
         sf::Vector2f coords;
 
@@ -63,6 +62,12 @@ std::vector< sf::Vertex > dataManager::getNextReading() {
         sf::Vertex endPoint(coords);
         endPoint.color = sf::Color::Red;
 
+
+        if(tmpVect[i] >= 2.5f){
+            continue;
+        }
+
+        tmpLines.push_back(startPoint);
         tmpLines.push_back(endPoint);
 
     }
