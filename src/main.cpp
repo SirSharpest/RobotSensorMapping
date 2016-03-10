@@ -21,9 +21,11 @@ int main() {
 
     grid myGrid;
 
+
     //Make bigger but rotate
     myGrid.setPosition(0, 800);
     myGrid.setScale(sf::Vector2f(80,-80));
+
 
     sf::Clock clock;
 

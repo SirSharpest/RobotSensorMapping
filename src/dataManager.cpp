@@ -50,22 +50,24 @@ std::vector< sf::Vertex > dataManager::getNextReading() {
     for(int i = 0; i < tmpVect.size(); i++){
 
         //Need to add starting point first each time
-        tmpLines.push_back(sf::Vertex(sf::Vector2f(toProcess.front().getPos().x, toProcess.front().getPos().y)));
+        sf::Vertex startPoint(sf::Vector2f(toProcess.front().getPos().x, toProcess.front().getPos().y));
+        startPoint.color = sf::Color::Green;
 
-
-
+        tmpLines.push_back(startPoint);
 
         sf::Vector2f coords;
+
         coords.x = (toProcess.front().getPos().x + tmpVect[i] * cos(M_PI/180 * ((i*45)) + toProcess.front().getAngle()) );
         coords.y = (toProcess.front().getPos().y + tmpVect[i] * sin(M_PI/180 * ((i*45)) + toProcess.front().getAngle()) );
-        
-        tmpLines.push_back(sf::Vertex(coords));
+
+        sf::Vertex endPoint(coords);
+        endPoint.color = sf::Color::Red;
+
+        tmpLines.push_back(endPoint);
 
     }
 
-
     toProcess.pop();
-
 
     return tmpLines;
 }

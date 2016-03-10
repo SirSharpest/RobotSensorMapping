@@ -15,8 +15,8 @@ gridSize(100){
     data.readData("resources/poses.txt", "resources/ranges.txt");
 
 
-    vertex.setPrimitiveType(sf::Lines);
-
+    straightLineReadings.setPrimitiveType(sf::Lines);
+    //setUpBackground();
 
 
 
@@ -60,9 +60,10 @@ void grid::draw(sf::RenderTarget &target, sf::RenderStates states) const {
     // apply the entity's transform -- combine it with the one that was passed by the caller
     states.transform *= getTransform(); // getTransform() is defined by sf::Transformable
 
+    target.draw(boxGirdBackground, states);
 
-    // draw the vertex array
-    target.draw(vertex, states);
+    // draw the straightLineReadings array
+    target.draw(straightLineReadings, states);
 
 }
 
@@ -73,10 +74,68 @@ void grid::updateGrid() {
     std::vector<sf::Vertex> tmpVect = data.getNextReading();
 
     for(int i = 0; i < tmpVect.size(); i++){
-        vertex.append(tmpVect[i]);
+
+        //TODO check for collision here for the update
+
+        straightLineReadings.append(tmpVect[i]);
+
+        std::cout << tmpVect[i].position.x << "," << tmpVect[i].position.y << std::endl;  ;
+
     }
+
+
+
 
 
 }
 
 
+void grid::setUpBackground() {
+
+    boxGirdBackground.setPrimitiveType(sf::Quads);
+
+    //TODO: make this read in values for size of grid
+    for(int i = 0; i < 10; i++){
+
+        for(int j = 0; j < 10; j++) {
+
+            sf::Vertex topL(sf::Vector2f(i + 0, j+ 0 ));
+            sf::Vertex topR(sf::Vector2f(i + 0, j+1));
+            sf::Vertex bottomL(sf::Vector2f(i+ 1, j+0));
+            sf::Vertex bottomR(sf::Vector2f(i +1, j+1));
+
+            topL.color = sf::Color::Black;
+            topR.color = sf::Color::Black;
+            bottomL.color = sf::Color::Black;
+            bottomR.color = sf::Color::Black;
+
+            boxGirdBackground.append(bottomL);
+            boxGirdBackground.append(topL);
+            boxGirdBackground.append(topR);
+            boxGirdBackground.append(bottomR);
+
+        }
+    }
+
+
+}
+
+void grid::addSquare(float tlX, float tlY, float blX, float blY, float trX, float trY, float brX, float brY) {
+
+    sf::Vertex topL(sf::Vector2f(tlX, tlY));
+    sf::Vertex topR(sf::Vector2f(trX, trY));
+    sf::Vertex bottomL(sf::Vector2f(blX, blY));
+    sf::Vertex bottomR(sf::Vector2f(brX, brY));
+
+    topL.color = sf::Color::Green;
+    topR.color = sf::Color::Green;
+    bottomL.color = sf::Color::Green;
+    bottomR.color = sf::Color::Green;
+
+    boxGirdBackground.append(bottomL);
+    boxGirdBackground.append(topL);
+    boxGirdBackground.append(topR);
+    boxGirdBackground.append(bottomR);
+
+
+}

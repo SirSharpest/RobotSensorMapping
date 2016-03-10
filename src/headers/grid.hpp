@@ -25,7 +25,8 @@ private:
 
     std::vector<std::vector<cell> > cellGrid;
 
-    sf::VertexArray vertex;
+    sf::VertexArray straightLineReadings;
+    sf::VertexArray boxGirdBackground;
 
     dataManager data; // Object used to retrieve data
 
@@ -43,7 +44,11 @@ private:
     void setupGrid(const short gridSize);
 
 
+    void setUpBackground();
+
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+
+    void addSquare(float tlX, float tlY, float blX, float blY, float trX, float trY, float brX, float brY);
 
 public:
 
