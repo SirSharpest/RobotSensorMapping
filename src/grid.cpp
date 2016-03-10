@@ -8,7 +8,16 @@
 grid::grid():
 gridSize(100){
 
+    //TODO: Is this needed either??
     setupGrid(gridSize);
+
+    //TODO: Hardcoded for now but could easily be a function or overloaded constructor
+    data.readData("resources/poses.txt", "resources/ranges.txt");
+
+
+    vertex.setPrimitiveType(sf::Lines);
+
+
 
 
 }
@@ -40,6 +49,31 @@ void grid::setupGrid(const short gridSize) {
             cellGrid[i].push_back(cell(i, j));
         }
 
+    }
+
+
+}
+
+void grid::draw(sf::RenderTarget &target, sf::RenderStates states) const {
+
+
+    // apply the entity's transform -- combine it with the one that was passed by the caller
+    states.transform *= getTransform(); // getTransform() is defined by sf::Transformable
+
+
+    // draw the vertex array
+    target.draw(vertex, states);
+
+}
+
+void grid::updateGrid() {
+
+    //TODO: Need to check data is initilized properly
+
+    std::vector<sf::Vertex> tmpVect = data.getNextReading();
+
+    for(int i = 0; i < tmpVect.size(); i++){
+        vertex.append(tmpVect[i]);
     }
 
 

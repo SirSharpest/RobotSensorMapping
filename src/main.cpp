@@ -3,9 +3,6 @@
 //
 #include <SFML/Graphics.hpp>
 #include "headers/grid.hpp"
-#include "headers/dataManager.hpp"
-
-#define DISPLAY
 
 
 /*
@@ -18,41 +15,19 @@
 
 int main() {
 
-#ifdef DISPLAY
     // create the window
-    sf::RenderWindow window(sf::VideoMode(800, 600), "My window");
+    sf::RenderWindow window(sf::VideoMode(800, 800), "My window");
     window.setFramerateLimit(10);
 
+    grid myGrid;
 
-    /**
-     * Example of how to do lines
-     */
-    sf::VertexArray lines(sf::Lines);
-
-    sf::Vertex vertex(sf::Vector2f(10, 10), sf::Color::Red);
-    sf::Vertex vertex1(sf::Vector2f(100, 10), sf::Color::Red);
-    lines.append(vertex);
-    lines.append(vertex1);
-
-    sf::Vertex vertex2(sf::Vector2f(20, 50), sf::Color::Red);
-    sf::Vertex vertex3(sf::Vector2f(200, 150), sf::Color::Red);
-    lines.append(vertex2);
-    lines.append(vertex3);
+    //Make bigger but rotate
+    myGrid.setPosition(0, 800);
+    myGrid.setScale(sf::Vector2f(80,-80));
 
 
-    sf::VertexArray triangle(sf::Triangles, 3);
 
-    // define the position of the triangle's points
-    triangle[0].position = sf::Vector2f(200, 100);
-    triangle[1].position = sf::Vector2f(250, 150);
-    triangle[2].position = sf::Vector2f(600, 170);
-
-// define the color of the triangle's points
-    triangle[0].color = sf::Color::Red;
-    triangle[1].color = sf::Color::Blue;
-    triangle[2].color = sf::Color::Green;
-
-
+    for(int i = 0; i < 1; i++){myGrid.updateGrid();}
 
     // run the program as long as the window is open
     while (window.isOpen())
@@ -70,19 +45,15 @@ int main() {
         window.clear(sf::Color::Black);
 
         // draw everything here...
-        window.draw(lines);
-        window.draw(triangle);
+        window.draw(myGrid);
+
 
         // end the current frame
         window.display();
     }
-#endif
 
 
-    grid myGrid;
-    dataManager myManager;
 
-    myManager.readData("resources/poses.txt", "resources/ranges.txt");
 
     std::cout << "oops";
 

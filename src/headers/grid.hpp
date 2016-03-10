@@ -1,5 +1,6 @@
 //
 // Created by nathan on 07/03/16.
+// TODO: Set up scaling properly
 //
 
 #ifndef CS22510_GRID_HPP
@@ -10,16 +11,21 @@
 #include "dataManager.hpp"
 #include "cell.hpp"
 #include <vector>
+#include <SFML/Graphics.hpp>
 
-class grid {
+class grid : public sf::Drawable, public sf::Transformable{
 
 private:
 
 
+
+    //TODO: Is this needed???
     const short gridSize; // Size of the grid (x == y)
     short cellSize; // Size of each cell
 
     std::vector<std::vector<cell> > cellGrid;
+
+    sf::VertexArray vertex;
 
     dataManager data; // Object used to retrieve data
 
@@ -36,6 +42,9 @@ private:
      */
     void setupGrid(const short gridSize);
 
+
+    virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+
 public:
 
     /*
@@ -49,6 +58,8 @@ public:
      */
     friend std::ostream& operator<<(std::ostream& os, const grid& gd);
 
+
+    void updateGrid();
 
     /*
      * Destructor

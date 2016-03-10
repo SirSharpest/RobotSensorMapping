@@ -21,3 +21,15 @@ sensorData::sensorData(float s0, float s1, float s2, float s3, float s4, float s
     this->angle = angle;
 
 }
+
+std::vector<float> sensorData::getSensors() {
+    return ranges;
+}
+
+sf::Vector2f sensorData::getPos() {
+    return sf::Vector2<float>(posX, posY);
+}
+
+float sensorData::getAngle() {
+    return this->angle;
+}
