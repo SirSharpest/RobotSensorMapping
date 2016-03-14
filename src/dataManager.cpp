@@ -75,12 +75,8 @@ std::vector< sf::Vertex > dataManager::getNextReading() {
                 coords.x = (float) (toProcess.front().getPos().x + j * cos( (M_PI / 180 * ((i * 45))) +
                                                                                     (M_PI / 180 * toProcess.front().getAngle())) );
 
-
-
                 coords.y = (float) (toProcess.front().getPos().y + j * sin( (M_PI / 180 * ((i * 45)))
                                                                             + (M_PI / 180 * toProcess.front().getAngle()) ));
-
-
                 sf::Vertex endPoint(coords);
                 endPoint.color = sf::Color::Red;
                 tmpLines.push_back(startPoint);
@@ -92,8 +88,11 @@ std::vector< sf::Vertex > dataManager::getNextReading() {
         }
 
 
-        coords.x = (float) (toProcess.front().getPos().x + tmpVect[i] * cos(M_PI / 180 * ((i * 45)) + toProcess.front().getAngle()) );
-        coords.y = (float) (toProcess.front().getPos().y + tmpVect[i] * sin(M_PI / 180 * ((i * 45)) + toProcess.front().getAngle()) );
+        coords.x = (float) (toProcess.front().getPos().x + tmpVect[i] * cos( (M_PI / 180 * ((i * 45)))
+                                                                             + (M_PI / 180 *  toProcess.front().getAngle())) );
+
+        coords.y = (float) (toProcess.front().getPos().y + tmpVect[i] * sin((M_PI / 180 * ((i * 45))) +
+                                                                                    (M_PI / 180 * toProcess.front().getAngle())) );
 
         sf::Vertex endPoint(coords);
         endPoint.color = sf::Color::Red;

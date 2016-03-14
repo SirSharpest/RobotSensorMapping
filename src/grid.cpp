@@ -43,7 +43,7 @@ void grid::draw(sf::RenderTarget &target, sf::RenderStates states) const {
     states.transform *= getTransform(); // getTransform() is defined by sf::Transformable
 
     // draw the straightLineReadings array
-    target.draw(straightLineReadings, states);
+    //target.draw(straightLineReadings, states);
 
     target.draw(boxesOnScreen, states);
     //draw the grid's markings
@@ -81,7 +81,10 @@ void grid::updateGrid() {
             y = (float) (y - 0.1);
         }
 
-        addSquare(x, y, x, y+0.2, x+0.2, y, x+0.2, y+0.2);
+        addSquare(x, y,
+                  x, (float) (y + 0.2),
+                  (float) (x + 0.2), y,
+                  (float) (x + 0.2), (float) (y + 0.2));
 
     }
 
