@@ -22,7 +22,7 @@ int main() {
 
     sf::Clock clock;
 
-    for(int i =0; i < 41; i++){myGrid.updateGrid();}
+   // for(int i =0; i < 41; i++){myGrid.updateGrid();}
 
 
     // run the program as long as the window is open
@@ -30,17 +30,36 @@ int main() {
     {
         // check all the window's events that were triggered since the last iteration of the loop
         sf::Event event;
-        while (window.pollEvent(event))
-        {
+
+        while (window.pollEvent(event)) {
             // "close requested" event: we close the window
             if (event.type == sf::Event::Closed)
                 window.close();
+
+            if(event.type == sf::Event::KeyPressed){
+
+
+                //Hide/Show grid
+                if(event.key.code == sf::Keyboard::G){
+                    myGrid.switchGrid();
+                }
+                //Hide/Show boxes
+                else if(event.key.code == sf::Keyboard::B){
+                    myGrid.switchBoxes();
+                }
+                else if(event.key.code == sf::Keyboard::L){
+                    myGrid.switchLines();
+                }
+
+
+            }
+
         }
 
-//        if(clock.getElapsedTime().asSeconds() > 2){
-//            myGrid.updateGrid();
-//            clock.restart();
-//        }
+        if(clock.getElapsedTime().asSeconds() > 2){
+            myGrid.updateGrid();
+            clock.restart();
+        }
 
         // clear the window with black color
         window.clear(sf::Color::Black);

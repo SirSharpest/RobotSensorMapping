@@ -5,7 +5,10 @@
 #include "headers/grid.hpp"
 
 
-grid::grid(){
+grid::grid():
+displayGrid(true),
+displayBoxes(true),
+displayLines(true){
 
     data.readData("resources/poses.txt", "resources/ranges.txt");
     straightLineReadings.setPrimitiveType(sf::Lines);
@@ -20,6 +23,8 @@ grid::~grid() {
     std::cout << "Grid destroyed" << std::endl;
 
 }
+
+
 
 //std::ostream &operator<<(std::ostream &os, const grid &gd) {
 //
@@ -43,11 +48,16 @@ void grid::draw(sf::RenderTarget &target, sf::RenderStates states) const {
     states.transform *= getTransform(); // getTransform() is defined by sf::Transformable
 
     // draw the straightLineReadings array
-    //target.draw(straightLineReadings, states);
 
-    target.draw(boxesOnScreen, states);
+    if(displayLines)
+        target.draw(straightLineReadings, states);
+
+    if(displayBoxes)
+        target.draw(boxesOnScreen, states);
+
     //draw the grid's markings
-    target.draw(gridMarkings, states);
+    if(displayGrid)
+        target.draw(gridMarkings, states);
 }
 
 void grid::updateGrid() {
@@ -140,7 +150,6 @@ void grid::addSquare(float tlX, float tlY, float blX, float blY, float trX, floa
 
 
 
-
 //    std::cout << "Height: " << boxesOnScreen.getBounds().height << std::endl
 //    << "Width: " << boxesOnScreen.getBounds().width << std::endl
 //    << "Start point: " << boxesOnScreen.getBounds().left << ", " << boxesOnScreen.getBounds().top << std::endl;
@@ -168,5 +177,23 @@ void grid::setupGrid() {
         gridMarkings.append(sideR);
 
     }
+
+}
+
+void grid::switchGrid() {
+
+    displayGrid = displayGrid ? false : true;
+
+}
+
+void grid::switchBoxes() {
+
+    displayBoxes = displayBoxes ? false : true;
+
+}
+
+void grid::switchLines() {
+
+    displayLines = displayLines ? false : true;
 
 }

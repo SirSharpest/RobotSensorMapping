@@ -41,7 +41,7 @@ private:
 
     void addSquare(float tlX, float tlY, float blX, float blY, float trX, float trY, float brX, float brY);
 
-
+    bool displayGrid, displayBoxes, displayLines;
 
 
 public:
@@ -60,6 +60,10 @@ public:
 
     void updateGrid();
 
+
+    void switchGrid();
+    void switchBoxes();
+    void switchLines();
 
     /*
      * Destructor
