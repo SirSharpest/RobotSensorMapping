@@ -26,6 +26,9 @@ private:
 
 public:
 
+    /*
+     * Default constructor of dataManager to produce the inits needed
+     */
     dataManager();
 
     /*
@@ -33,6 +36,10 @@ public:
      */
     void readData(std::string posesFile, std::string rangesFile);
 
+    /*
+     * Gets the next reading to be processed
+     * from the priority queue s
+     */
     std::vector< sf::Vertex > getNextReading();
 
 };

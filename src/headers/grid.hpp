@@ -32,7 +32,7 @@ private:
     /*
      * Creates the memory required for a grid of a particular size
      */
-    void setupGrid(const short gridSize);
+    void setupGrid();
 
 
     void setUpBackground();

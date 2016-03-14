@@ -5,14 +5,7 @@
 #include "headers/grid.hpp"
 
 
-/*
- *
- *  TODO: Adjust for robot angle
- *  TODO: paint path in sequence and taking a fixed time step
- *
- */
 
-;
 int main() {
 
     // create the window
@@ -21,7 +14,6 @@ int main() {
 
 
     grid myGrid;
-    for(int i = 0; i < 41; i++){myGrid.updateGrid();}
 
     //Make bigger but rotate
     myGrid.setPosition(0, 800);
@@ -29,6 +21,9 @@ int main() {
 
 
     sf::Clock clock;
+
+    for(int i =0; i < 41; i++){myGrid.updateGrid();}
+
 
     // run the program as long as the window is open
     while (window.isOpen())

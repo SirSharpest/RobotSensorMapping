@@ -39,7 +39,6 @@ void dataManager::readData(std::string posesFile, std::string rangesFile) {
 
 std::vector< sf::Vertex > dataManager::getNextReading() {
 
-    //TODO: Calculate all the stuff
 
     std::vector<sf::Vertex> tmpLines;
 
@@ -49,8 +48,8 @@ std::vector< sf::Vertex > dataManager::getNextReading() {
     //Need to compute each reading to take into account position of the robot
     for(int i = 0; i < tmpVect.size(); i++){
 
-        //Lets ignore all the infinity
-        if(tmpVect[i] >= 2.5f){
+        //Lets ignore all the infinity values
+        if(tmpVect[i] >= 2.6f){
             continue;
         }
 
@@ -73,8 +72,15 @@ std::vector< sf::Vertex > dataManager::getNextReading() {
 
                 j-=0.1f;
 
-                coords.x = (float) (toProcess.front().getPos().x + j * cos(M_PI / 180 * ((i * 45)) + toProcess.front().getAngle()) );
-                coords.y = (float) (toProcess.front().getPos().y + j * sin(M_PI / 180 * ((i * 45)) + toProcess.front().getAngle()) );
+                coords.x = (float) (toProcess.front().getPos().x + j * cos( (M_PI / 180 * ((i * 45))) +
+                                                                                    (M_PI / 180 * toProcess.front().getAngle())) );
+
+
+
+                coords.y = (float) (toProcess.front().getPos().y + j * sin( (M_PI / 180 * ((i * 45)))
+                                                                            + (M_PI / 180 * toProcess.front().getAngle()) ));
+
+
                 sf::Vertex endPoint(coords);
                 endPoint.color = sf::Color::Red;
                 tmpLines.push_back(startPoint);
