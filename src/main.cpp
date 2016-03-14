@@ -19,9 +19,8 @@ int main() {
     sf::RenderWindow window(sf::VideoMode(800, 800), "My window");
     window.setFramerateLimit(10);
 
+
     grid myGrid;
-
-
     for(int i = 0; i < 41; i++){myGrid.updateGrid();}
 
     //Make bigger but rotate

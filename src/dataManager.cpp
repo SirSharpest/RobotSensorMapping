@@ -49,12 +49,42 @@ std::vector< sf::Vertex > dataManager::getNextReading() {
     //Need to compute each reading to take into account position of the robot
     for(int i = 0; i < tmpVect.size(); i++){
 
+        //Lets ignore all the infinity
+        if(tmpVect[i] >= 2.5f){
+            continue;
+        }
+
+
         //Need to add starting point first each time
         sf::Vertex startPoint(sf::Vector2f(toProcess.front().getPos().x, toProcess.front().getPos().y));
         startPoint.color = sf::Color::Green;
 
 
         sf::Vector2f coords;
+
+        //If the point is greater than 0.5 (the size of a gird currently
+        if(tmpVect[i] > 0.1f){
+
+            //We want to record that and add it
+
+            float j = tmpVect[i];
+
+            while(j>0.1f){
+
+                j-=0.1f;
+
+                coords.x = (float) (toProcess.front().getPos().x + j * cos(M_PI / 180 * ((i * 45)) + toProcess.front().getAngle()) );
+                coords.y = (float) (toProcess.front().getPos().y + j * sin(M_PI / 180 * ((i * 45)) + toProcess.front().getAngle()) );
+                sf::Vertex endPoint(coords);
+                endPoint.color = sf::Color::Red;
+                tmpLines.push_back(startPoint);
+                tmpLines.push_back(endPoint);
+
+            }
+
+
+        }
+
 
         coords.x = (float) (toProcess.front().getPos().x + tmpVect[i] * cos(M_PI / 180 * ((i * 45)) + toProcess.front().getAngle()) );
         coords.y = (float) (toProcess.front().getPos().y + tmpVect[i] * sin(M_PI / 180 * ((i * 45)) + toProcess.front().getAngle()) );
@@ -63,9 +93,6 @@ std::vector< sf::Vertex > dataManager::getNextReading() {
         endPoint.color = sf::Color::Red;
 
 
-        if(tmpVect[i] >= 2.5f){
-            continue;
-        }
 
         tmpLines.push_back(startPoint);
         tmpLines.push_back(endPoint);

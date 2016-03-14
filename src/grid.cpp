@@ -18,6 +18,24 @@ grid::grid(){
 
     //TODO: Draw the background grid of the graph
 
+    gridMarkings.setPrimitiveType(sf::Lines);
+
+    for(int i = 0; i < 50; i+=1){
+
+        sf::Vector2f bottom(i/5.f, 0) ;
+        sf::Vector2f top(i/5.f, 10);
+
+        gridMarkings.append(bottom);
+        gridMarkings.append(top);
+
+        sf::Vector2f sideL(0, i/5.f) ;
+        sf::Vector2f sideR(10, i/5.f);
+
+        gridMarkings.append(sideL);
+        gridMarkings.append(sideR);
+
+
+    }
 
 }
 
@@ -59,11 +77,17 @@ void grid::draw(sf::RenderTarget &target, sf::RenderStates states) const {
     // apply the entity's transform -- combine it with the one that was passed by the caller
     states.transform *= getTransform(); // getTransform() is defined by sf::Transformable
 
-    target.draw(boxGirdBackground, states);
+
+
+
 
     // draw the straightLineReadings array
+    //TODO: Turn on and rename
     target.draw(straightLineReadings, states);
 
+    target.draw(boxesOnScreen, states);
+    //draw the grid's markings
+    target.draw(gridMarkings, states);
 }
 
 void grid::updateGrid() {
@@ -79,25 +103,50 @@ void grid::updateGrid() {
         straightLineReadings.append(tmpVect[i]);
 
 
-        addSquare(tmpVect[i].position.x, tmpVect[i].position.y,
-                   tmpVect[i].position.x, ( tmpVect[i].position.y) +0.2,
-                  ( tmpVect[i].position.x) +0.2,  tmpVect[i].position.y,
-                  ( tmpVect[i].position.x +0.2), ( tmpVect[i].position.y+0.2));
+        //TODO: This needs to round to the closes grid based square
+//        addSquare(tmpVect[i].position.x, tmpVect[i].position.y,
+//                  tmpVect[i].position.x, (float) (( tmpVect[i].position.y) + 0.2),
+//                  (float) (( tmpVect[i].position.x) + 0.2), tmpVect[i].position.y,
+//                  (float) (tmpVect[i].position.x + 0.2), (float) (tmpVect[i].position.y + 0.2));
+//
 
-        std::cout << tmpVect[i].position.x << "," << tmpVect[i].position.y << std::endl;  ;
+        //Attempting a rounding
+//        addSquare((int)tmpVect[i].position.x + 0.2f, (int)tmpVect[i].position.y+ 0.2f,
+//                  (int)tmpVect[i].position.x + 0.2f, (int) (( tmpVect[i].position.y) + 0.2f + 0.2f),
+//                  (int) (( tmpVect[i].position.x) + 0.2+ 0.2f), (int)tmpVect[i].position.y+ 0.2f,
+//                  (int) (tmpVect[i].position.x + 0.2+ 0.2f), (int) (tmpVect[i].position.y + 0.2 + 0.2f));
+
+
+        //TODO: Read the values of these so that they are rounded properly
+        float x, y;
+        int xI, yI;
+        //Remember: the grids are 0.2f^2
+        //find X & Y
+        x = tmpVect[i].position.x ;
+        y = tmpVect[i].position.y ;
+        xI = x * 10;
+        yI = y * 10;
+
+        x = (float) xI/10;
+        y = (float) yI/10;
+
+        if(xI % 2 == 1){
+            x = x-0.1;
+        }
+        if(yI % 2 == 1){
+            y = y-0.1;
+        }
+
+        addSquare(x, y, x, y+0.2, x+0.2, y, x+0.2, y+0.2);
 
     }
-
-
-
-
 
 }
 
 
 void grid::setUpBackground() {
 
-    boxGirdBackground.setPrimitiveType(sf::Quads);
+    boxesOnScreen.setPrimitiveType(sf::Quads);
 
     //TODO: make this read in values for size of grid
     for(int i = 0; i < 10; i++){
@@ -114,10 +163,10 @@ void grid::setUpBackground() {
             bottomL.color = sf::Color::Black;
             bottomR.color = sf::Color::Black;
 
-            boxGirdBackground.append(bottomL);
-            boxGirdBackground.append(topL);
-            boxGirdBackground.append(topR);
-            boxGirdBackground.append(bottomR);
+            boxesOnScreen.append(bottomL);
+            boxesOnScreen.append(topL);
+            boxesOnScreen.append(topR);
+            boxesOnScreen.append(bottomR);
 
         }
     }
@@ -137,10 +186,18 @@ void grid::addSquare(float tlX, float tlY, float blX, float blY, float trX, floa
     bottomL.color = sf::Color::Green;
     bottomR.color = sf::Color::Green;
 
-    boxGirdBackground.append(bottomL);
-    boxGirdBackground.append(topL);
-    boxGirdBackground.append(topR);
-    boxGirdBackground.append(bottomR);
+    boxesOnScreen.append(bottomL);
+    boxesOnScreen.append(topL);
+    boxesOnScreen.append(topR);
+    boxesOnScreen.append(bottomR);
+
+
+
+
+//    std::cout << "Height: " << boxesOnScreen.getBounds().height << std::endl
+//    << "Width: " << boxesOnScreen.getBounds().width << std::endl
+//    << "Start point: " << boxesOnScreen.getBounds().left << ", " << boxesOnScreen.getBounds().top << std::endl;
+
 
 
 }

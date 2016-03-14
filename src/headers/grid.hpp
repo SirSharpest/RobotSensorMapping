@@ -12,6 +12,7 @@
 #include "cell.hpp"
 #include <vector>
 #include <SFML/Graphics.hpp>
+#include <math.h>
 
 class grid : public sf::Drawable, public sf::Transformable{
 
@@ -20,7 +21,7 @@ private:
     std::vector<std::vector<cell> > cellGrid;
 
     sf::VertexArray straightLineReadings;
-    sf::VertexArray boxGirdBackground;
+    sf::VertexArray boxesOnScreen;
 
     sf::VertexArray gridMarkings;
 
@@ -41,6 +42,8 @@ private:
     void addSquare(float tlX, float tlY, float blX, float blY, float trX, float trY, float brX, float brY);
 
 
+
+
 public:
 
     /*
@@ -52,7 +55,7 @@ public:
     /*
      * Overloading the << operator so that the object can easily be printed
      */
-    friend std::ostream& operator<<(std::ostream& os, const grid& gd);
+    //friend std::ostream& operator<<(std::ostream& os, const grid& gd);
 
 
     void updateGrid();
