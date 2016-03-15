@@ -18,8 +18,6 @@ class grid : public sf::Drawable, public sf::Transformable{
 
 private:
 
-    std::vector<std::vector<cell> > cellGrid;
-
     sf::VertexArray straightLineReadings;
     sf::VertexArray boxesOnScreen;
 
@@ -50,12 +48,6 @@ public:
      * Default constructor
      */
     grid();
-
-
-    /*
-     * Overloading the << operator so that the object can easily be printed
-     */
-    //friend std::ostream& operator<<(std::ostream& os, const grid& gd);
 
 
     void updateGrid();

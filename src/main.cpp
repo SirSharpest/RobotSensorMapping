@@ -22,7 +22,7 @@ int main() {
 
     sf::Clock clock;
 
-   // for(int i =0; i < 41; i++){myGrid.updateGrid();}
+   for(int i =0; i < 41; i++){myGrid.updateGrid();}
 
 
     // run the program as long as the window is open
@@ -56,10 +56,10 @@ int main() {
 
         }
 
-        if(clock.getElapsedTime().asSeconds() > 2){
-            myGrid.updateGrid();
-            clock.restart();
-        }
+//        if(clock.getElapsedTime().asSeconds() > 2){
+//            myGrid.updateGrid();
+//            clock.restart();
+//        }
 
         // clear the window with black color
         window.clear(sf::Color::Black);

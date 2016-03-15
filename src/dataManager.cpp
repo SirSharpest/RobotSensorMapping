@@ -48,11 +48,6 @@ std::vector< sf::Vertex > dataManager::getNextReading() {
     //Need to compute each reading to take into account position of the robot
     for(int i = 0; i < tmpVect.size(); i++){
 
-        //Lets ignore all the infinity values
-        if(tmpVect[i] >= 2.6f){
-            continue;
-        }
-
 
         //Need to add starting point first each time
         sf::Vertex startPoint(sf::Vector2f(toProcess.front().getPos().x, toProcess.front().getPos().y));
