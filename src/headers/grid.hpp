@@ -9,7 +9,6 @@
 #include <iosfwd>
 #include <iostream>
 #include "dataManager.hpp"
-#include "cell.hpp"
 #include <vector>
 #include <SFML/Graphics.hpp>
 #include <math.h>
@@ -56,6 +55,7 @@ public:
     void switchGrid();
     void switchBoxes();
     void switchLines();
+    void switchColors();
 
     /*
      * Destructor

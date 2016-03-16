@@ -91,82 +91,52 @@ void grid::updateGrid() {
 void grid::setUpBackground() {
 
     boxesOnScreen.setPrimitiveType(sf::Quads);
-    for(int i = 0; i < 50; i++){
-
-        for(int j = 0; j < 50; j++) {
-
-
-            float x, y;
-            y = (float) i/5;
-            x = (float ) j/5;
-
-            sf::Vertex topL(sf::Vector2f(x, y));
-            sf::Vertex topR(sf::Vector2f(x+0.2f , y));
-            sf::Vertex bottomL(sf::Vector2f(x, y+0.2f));
-            sf::Vertex bottomR(sf::Vector2f(x+0.2f, y+0.2f));
-
-            topL.color = sf::Color::Black;
-            topR.color = sf::Color::Black;
-            bottomL.color = sf::Color::Black;
-            bottomR.color = sf::Color::Black;
-
-            boxesOnScreen.append(bottomL);
-            boxesOnScreen.append(topL);
-            boxesOnScreen.append(topR);
-            boxesOnScreen.append(bottomR);
-
-        }
-    }
+//    for(int i = 0; i < 50; i++){
+//
+//        for(int j = 0; j < 50; j++) {
+//
+//
+//            float x, y;
+//            y = (float) i/5;
+//            x = (float ) j/5;
+//
+//            sf::Vertex topL(sf::Vector2f(x, y));
+//            sf::Vertex topR(sf::Vector2f(x+0.2f , y));
+//            sf::Vertex bottomL(sf::Vector2f(x, y+0.2f));
+//            sf::Vertex bottomR(sf::Vector2f(x+0.2f, y+0.2f));
+//
+//            topL.color = sf::Color::Black;
+//            topR.color = sf::Color::Black;
+//            bottomL.color = sf::Color::Black;
+//            bottomR.color = sf::Color::Black;
+//
+//            boxesOnScreen.append(bottomL);
+//            boxesOnScreen.append(topL);
+//            boxesOnScreen.append(topR);
+//            boxesOnScreen.append(bottomR);
+//
+//        }
+//    }
 
 
 }
 
 void grid::addSquare(float tlX, float tlY, float blX, float blY, float trX, float trY, float brX, float brY) {
 
+    sf::Vertex topL(sf::Vector2f(tlX, tlY));
+    sf::Vertex topR(sf::Vector2f(trX, trY));
+    sf::Vertex bottomL(sf::Vector2f(blX, blY));
+    sf::Vertex bottomR(sf::Vector2f(brX, brY));
 
+    topL.color = sf::Color::Green;
+    topR.color = sf::Color::Green;
+    bottomL.color = sf::Color::Green;
+    bottomR.color = sf::Color::Green;
 
-    //There are 4 * 50 * 50 points = 10,000
-    //Every 4 points is another square
-    // 0,1,2,3 = 1
-    // 4,5,6,7 = 2
-
-//    float x = (float) ((tlY / 0.2) * 50);
-//    float y = (float) (tlX / 0.2);
-//
-//
-//    //y = y-1;
-//    std::cout << tlX << " " << tlY << std::endl;
-//
-//    //The position /4 will give the position to change the color of
-//
-//    // the point 2,2 will actually be square 52 (0+-1)
-//    //2,2's coords in pixels are 0.4,0.4
-//
-//
-//    boxesOnScreen[((x+y) *4)].color = sf::Color::Cyan;
-//    boxesOnScreen[((x+y) *4)+1].color = sf::Color::Cyan;
-//    boxesOnScreen[((x+y) *4)+2].color = sf::Color::Cyan;
-//    boxesOnScreen[((x+y) *4)+3].color = sf::Color::Cyan;
-//
-//
-
-
-//    sf::Vertex topL(sf::Vector2f(tlX, tlY));
-//    sf::Vertex topR(sf::Vector2f(trX, trY));
-//    sf::Vertex bottomL(sf::Vector2f(blX, blY));
-//    sf::Vertex bottomR(sf::Vector2f(brX, brY));
-//
-//    topL.color = sf::Color::Green;
-//    topR.color = sf::Color::Green;
-//    bottomL.color = sf::Color::Green;
-//    bottomR.color = sf::Color::Green;
-//
-//    boxesOnScreen.append(bottomL);
-//    boxesOnScreen.append(topL);
-//    boxesOnScreen.append(topR);
-//    boxesOnScreen.append(bottomR);
-//
-
+    boxesOnScreen.append(bottomL);
+    boxesOnScreen.append(topL);
+    boxesOnScreen.append(topR);
+    boxesOnScreen.append(bottomR);
 
 }
 
@@ -208,4 +178,15 @@ void grid::switchLines() {
 
     displayLines = !displayLines;
 
+}
+
+void grid::switchColors() {
+
+    for(int i = 0; i < boxesOnScreen.getVertexCount(); i++){
+
+        if(boxesOnScreen[0].color == sf::Color::Green)
+            boxesOnScreen[i].color = sf::Color::Red;
+        else
+            boxesOnScreen[i].color = sf::Color::Green;
+    }
 }

@@ -22,9 +22,6 @@ int main() {
 
     sf::Clock clock;
 
-   for(int i =0; i < 41; i++){myGrid.updateGrid();}
-
-
     // run the program as long as the window is open
     while (window.isOpen())
     {
@@ -50,16 +47,19 @@ int main() {
                 else if(event.key.code == sf::Keyboard::L){
                     myGrid.switchLines();
                 }
+                else if(event.key.code == sf::Keyboard::C){
+                    myGrid.switchColors();
+                }
 
 
             }
 
         }
 
-//        if(clock.getElapsedTime().asSeconds() > 2){
-//            myGrid.updateGrid();
-//            clock.restart();
-//        }
+        if(clock.getElapsedTime().asSeconds() > 2){
+            myGrid.updateGrid();
+            clock.restart();
+        }
 
         // clear the window with black color
         window.clear(sf::Color::Black);

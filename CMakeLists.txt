@@ -7,7 +7,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall")
 # Define sources and executable
 set(EXECUTABLE_NAME "CS22510")
 
-set(SOURCE_FILES src/main.cpp src/grid.cpp src/headers/grid.hpp src/dataManager.cpp src/headers/dataManager.hpp src/cell.cpp src/headers/cell.hpp src/sensorData.cpp src/headers/sensorData.hpp )
+set(SOURCE_FILES src/main.cpp src/grid.cpp src/headers/grid.hpp src/dataManager.cpp src/headers/dataManager.hpp  src/sensorData.cpp src/headers/sensorData.hpp )
 add_executable(CS22510 ${SOURCE_FILES})
 
 # Detect and add SFML
