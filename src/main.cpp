@@ -32,6 +32,11 @@ int main() {
     //counter to check how many readings have been done
     int counter = 0;
 
+
+    for(int i = 0; i < 41; i++){
+        myGrid.updateGrid();
+    }
+
     // run the program as long as the window is open
     while (window.isOpen())
     {
@@ -69,9 +74,9 @@ int main() {
         if(clock.getElapsedTime().asSeconds() > 2){
             myGrid.updateGrid();
             clock.restart();
-            screenshot = window.capture();
-            screenshot.saveToFile(folderLocaiton + std::to_string(counter) + ".png" );
-            counter++;
+          //  screenshot = window.capture();
+          //  screenshot.saveToFile(folderLocaiton + std::to_string(counter) + ".png" );
+          //  counter++;
         }
 
         // clear the window with black color

@@ -38,9 +38,15 @@ public:
 
     /*
      * Gets the next reading to be processed
-     * from the priority queue s
+     * from the priority queue, that is displaying
+     * detected objects
      */
-    std::vector< sf::Vertex > getNextReading();
+    std::vector< sf::Vertex > getNextObjects();
+
+    std::vector< sf::Vertex > getNextOccupiedSquares();
+
+
+    std::vector<std::vector<sf::Vertex >> getNextReading();
 
 };
 

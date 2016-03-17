@@ -36,7 +36,7 @@ void grid::draw(sf::RenderTarget &target, sf::RenderStates states) const {
         target.draw(straightLineReadings, states);
 
     if(displayBoxes)
-        target.draw(boxesOnScreen, states);
+        target.draw(objectsDetected, states);
 
     //draw the grid's markings
     if(displayGrid)
@@ -45,57 +45,61 @@ void grid::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 
 void grid::updateGrid() {
 
-    std::vector<sf::Vertex> tmpVect = data.getNextReading();
 
-    for(uint i = 0; i < tmpVect.size(); i++){
+    std::vector<std::vector< sf::Vertex>> dataReadings = data.getNextReading();
 
-        //Take note of the straight lines on the grid
-        straightLineReadings.append(tmpVect[i]);
+    for(uint i = 0; i < 2; i++){
 
-        //Floats to store the positions of the points
-        float x, y;
-        x = tmpVect[i].position.x ;
-        y = tmpVect[i].position.y ;
+        std::vector<sf::Vertex> tmpVect = dataReadings[i];
 
-        // Store the Integer values to shave off useless accuracy
-        int xI, yI;
-        xI = (int) (x * 10);
-        yI = (int) (y * 10);
+        for(uint i = 0; i < tmpVect.size(); i++){
 
-        //Crop off the value and return to the float destination
-        x = (float) xI/10;
-        y = (float) yI/10;
+            //Take note of the straight lines on the grid
+            straightLineReadings.append(tmpVect[i]);
 
-        //Remove the squares between and round to entire square
-        if(xI % 2 == 1){
-            x = (float) (x - 0.1);
+            //Floats to store the positions of the points
+            float x, y;
+            x = tmpVect[i].position.x ;
+            y = tmpVect[i].position.y ;
+
+            // Store the Integer values to shave off useless accuracy
+            int xI, yI;
+            xI = (int) (x * 10);
+            yI = (int) (y * 10);
+
+            //Crop off the value and return to the float destination
+            x = (float) xI/10;
+            y = (float) yI/10;
+
+            //Remove the squares between and round to entire square
+            if(xI % 2 == 1){
+                x = (float) (x - 0.1);
+            }
+            if(yI % 2 == 1){
+                y = (float) (y - 0.1);
+            }
+
+            //Add a square of this size to the grid
+            if(x < 0 || y < 0)
+                continue;
+
+            addSquare(x, y, x, (float) (y + 0.2), (float) (x + 0.2), y, (float) (x + 0.2), (float) (y + 0.2),
+                      i == 0);
+
         }
-        if(yI % 2 == 1){
-            y = (float) (y - 0.1);
-        }
-
-        //Add a square of this size to the grid
-        if(x < 0 || y < 0)
-            continue;
-
-        addSquare(x, y,
-                  x, (float) (y + 0.2),
-                  (float) (x + 0.2), y,
-                  (float) (x + 0.2), (float) (y + 0.2));
-
     }
-
 }
 
 
 void grid::setUpBackground() {
 
-    boxesOnScreen.setPrimitiveType(sf::Quads);
+    objectsDetected.setPrimitiveType(sf::Quads);
 
 
 }
 
-void grid::addSquare(float tlX, float tlY, float blX, float blY, float trX, float trY, float brX, float brY) {
+void grid::addSquare(float tlX, float tlY, float blX, float blY, float trX, float trY, float brX, float brY,
+                     bool isOutline) {
 
 
     sf::Vertex topL(sf::Vector2f(tlX, tlY));
@@ -108,10 +112,18 @@ void grid::addSquare(float tlX, float tlY, float blX, float blY, float trX, floa
     bottomL.color = sf::Color::Green;
     bottomR.color = sf::Color::Green;
 
-    boxesOnScreen.append(bottomL);
-    boxesOnScreen.append(topL);
-    boxesOnScreen.append(topR);
-    boxesOnScreen.append(bottomR);
+
+    if(!isOutline){
+        occupiedSpaces.append(bottomL);
+        occupiedSpaces.append(topL);
+        occupiedSpaces.append(topR);
+        occupiedSpaces.append(bottomR);
+    }else{
+        objectsDetected.append(bottomL);
+        objectsDetected.append(topL);
+        objectsDetected.append(topR);
+        objectsDetected.append(bottomR);
+    }
 
 }
 
@@ -157,11 +169,11 @@ void grid::switchLines() {
 
 void grid::switchColors() {
 
-    for(uint i = 0; i < boxesOnScreen.getVertexCount(); i++){
+    for(uint i = 0; i < objectsDetected.getVertexCount(); i++){
 
-        if(boxesOnScreen[0].color == sf::Color::Green)
-            boxesOnScreen[i].color = sf::Color::Red;
+        if(objectsDetected[0].color == sf::Color::Green)
+            objectsDetected[i].color = sf::Color::Red;
         else
-            boxesOnScreen[i].color = sf::Color::Green;
+            objectsDetected[i].color = sf::Color::Green;
     }
 }

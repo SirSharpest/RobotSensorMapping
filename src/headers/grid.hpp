@@ -18,7 +18,8 @@ class grid : public sf::Drawable, public sf::Transformable{
 private:
 
     sf::VertexArray straightLineReadings;
-    sf::VertexArray boxesOnScreen;
+    sf::VertexArray objectsDetected;
+    sf::VertexArray occupiedSpaces;
     sf::VertexArray gridMarkings;
 
     dataManager data; // Object used to retrieve data
@@ -34,7 +35,8 @@ private:
 
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
-    void addSquare(float tlX, float tlY, float blX, float blY, float trX, float trY, float brX, float brY);
+    void addSquare(float tlX, float tlY, float blX, float blY, float trX, float trY, float brX, float brY,
+                       bool isOutline);
 
     bool displayGrid, displayBoxes, displayLines;
 
