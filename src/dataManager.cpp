@@ -30,16 +30,11 @@ void dataManager::readData(std::string posesFile, std::string rangesFile) {
 
         toProcess.push(sensorData(s0, s1, s2, s3, s4, s5, s6, s7,
         posX, posY, angle));
-
-
     }
-
 
 }
 
 std::vector< sf::Vertex > dataManager::getNextObjects() {
-
-
     std::vector<sf::Vertex> tmpLines;
 
     //This is the sensor readings adjusted for angle
@@ -48,10 +43,8 @@ std::vector< sf::Vertex > dataManager::getNextObjects() {
     //Need to compute each reading to take into account position of the robot
     for(uint i = 0; i < tmpVect.size(); i++){
 
-
-        if(tmpVect[i] >= 2.5)
+        if(tmpVect[i] > 2.5f)
             continue;
-
 
         sf::Vector2f coords;
 
@@ -59,16 +52,15 @@ std::vector< sf::Vertex > dataManager::getNextObjects() {
                                                                              + (M_PI / 180 *  toProcess.front().getAngle())) );
 
         coords.y = (float) (toProcess.front().getPos().y + tmpVect[i] * sin((M_PI / 180 * ((i * 45))) +
-                                                                                    (M_PI / 180 * toProcess.front().getAngle())) );
+                                                                            (M_PI / 180 * toProcess.front().getAngle())) );
 
         sf::Vertex endPoint(coords);
-        endPoint.color = sf::Color::Red;
+        endPoint.color = sf::Color::Green;
 
         tmpLines.push_back(endPoint);
         tmpLines.push_back(endPoint);
 
     }
-
 
     return tmpLines;
 }
@@ -141,5 +133,5 @@ std::vector<std::vector<sf::Vertex >> dataManager::getNextReading() {
 
     toProcess.pop();
 
-    return  allData;
+    return allData;
 }

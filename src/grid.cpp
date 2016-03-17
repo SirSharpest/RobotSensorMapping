@@ -8,7 +8,8 @@
 grid::grid():
 displayGrid(true),
 displayBoxes(true),
-displayLines(true){
+displayLines(true),
+displayOccupied(true){
 
     data.readData("resources/poses.txt", "resources/ranges.txt");
     straightLineReadings.setPrimitiveType(sf::Lines);
@@ -41,6 +42,9 @@ void grid::draw(sf::RenderTarget &target, sf::RenderStates states) const {
     //draw the grid's markings
     if(displayGrid)
         target.draw(gridMarkings, states);
+
+    if(displayOccupied)
+        target.draw(occupiedSpaces, states);
 }
 
 void grid::updateGrid() {
@@ -52,15 +56,15 @@ void grid::updateGrid() {
 
         std::vector<sf::Vertex> tmpVect = dataReadings[i];
 
-        for(uint i = 0; i < tmpVect.size(); i++){
+        for(uint j = 0; j < tmpVect.size(); j++){
 
             //Take note of the straight lines on the grid
-            straightLineReadings.append(tmpVect[i]);
+            straightLineReadings.append(tmpVect[j]);
 
             //Floats to store the positions of the points
             float x, y;
-            x = tmpVect[i].position.x ;
-            y = tmpVect[i].position.y ;
+            x = tmpVect[j].position.x ;
+            y = tmpVect[j].position.y ;
 
             // Store the Integer values to shave off useless accuracy
             int xI, yI;
@@ -94,6 +98,7 @@ void grid::updateGrid() {
 void grid::setUpBackground() {
 
     objectsDetected.setPrimitiveType(sf::Quads);
+    occupiedSpaces.setPrimitiveType(sf::Quads);
 
 
 }
@@ -176,4 +181,8 @@ void grid::switchColors() {
         else
             objectsDetected[i].color = sf::Color::Green;
     }
+}
+
+void grid::switchOccupied() {
+    displayOccupied = !displayOccupied;
 }

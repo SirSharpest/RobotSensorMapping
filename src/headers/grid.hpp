@@ -31,14 +31,26 @@ private:
     void setupGrid();
 
 
+    /*
+     * Sets up all required information for the background of the grid
+     */
     void setUpBackground();
 
+    /*
+     * Is the interface function from SFML drawable type objects that is overloaded
+     */
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
+    /*
+     * Paints a square on the grid
+     */
     void addSquare(float tlX, float tlY, float blX, float blY, float trX, float trY, float brX, float brY,
                        bool isOutline);
 
-    bool displayGrid, displayBoxes, displayLines;
+    /*
+     * Boolean switches to change what is displayed on the window
+     */
+    bool displayGrid, displayBoxes, displayLines, displayOccupied;
 
 
 public:
@@ -49,13 +61,21 @@ public:
     grid();
 
 
+    /*
+     * Called to perform 1 update of information on the grid
+     */
     void updateGrid();
 
 
+    /*
+     * Collection of functions to flip the switches
+     * which dictate what is displayed on the grid at any one time
+     */
     void switchGrid();
     void switchBoxes();
     void switchLines();
     void switchColors();
+    void switchOccupied();
 
     /*
      * Destructor
