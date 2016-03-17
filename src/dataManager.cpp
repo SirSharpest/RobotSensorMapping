@@ -46,7 +46,7 @@ std::vector< sf::Vertex > dataManager::getNextReading() {
     std::vector<float> tmpVect = toProcess.front().getSensors();
 
     //Need to compute each reading to take into account position of the robot
-    for(int i = 0; i < tmpVect.size(); i++){
+    for(uint i = 0; i < tmpVect.size(); i++){
 
 
         //Need to add starting point first each time

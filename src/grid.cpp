@@ -47,7 +47,7 @@ void grid::updateGrid() {
 
     std::vector<sf::Vertex> tmpVect = data.getNextReading();
 
-    for(int i = 0; i < tmpVect.size(); i++){
+    for(uint i = 0; i < tmpVect.size(); i++){
 
         //Take note of the straight lines on the grid
         straightLineReadings.append(tmpVect[i]);
@@ -91,37 +91,12 @@ void grid::updateGrid() {
 void grid::setUpBackground() {
 
     boxesOnScreen.setPrimitiveType(sf::Quads);
-//    for(int i = 0; i < 50; i++){
-//
-//        for(int j = 0; j < 50; j++) {
-//
-//
-//            float x, y;
-//            y = (float) i/5;
-//            x = (float ) j/5;
-//
-//            sf::Vertex topL(sf::Vector2f(x, y));
-//            sf::Vertex topR(sf::Vector2f(x+0.2f , y));
-//            sf::Vertex bottomL(sf::Vector2f(x, y+0.2f));
-//            sf::Vertex bottomR(sf::Vector2f(x+0.2f, y+0.2f));
-//
-//            topL.color = sf::Color::Black;
-//            topR.color = sf::Color::Black;
-//            bottomL.color = sf::Color::Black;
-//            bottomR.color = sf::Color::Black;
-//
-//            boxesOnScreen.append(bottomL);
-//            boxesOnScreen.append(topL);
-//            boxesOnScreen.append(topR);
-//            boxesOnScreen.append(bottomR);
-//
-//        }
-//    }
 
 
 }
 
 void grid::addSquare(float tlX, float tlY, float blX, float blY, float trX, float trY, float brX, float brY) {
+
 
     sf::Vertex topL(sf::Vector2f(tlX, tlY));
     sf::Vertex topR(sf::Vector2f(trX, trY));
@@ -182,7 +157,7 @@ void grid::switchLines() {
 
 void grid::switchColors() {
 
-    for(int i = 0; i < boxesOnScreen.getVertexCount(); i++){
+    for(uint i = 0; i < boxesOnScreen.getVertexCount(); i++){
 
         if(boxesOnScreen[0].color == sf::Color::Green)
             boxesOnScreen[i].color = sf::Color::Red;

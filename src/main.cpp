@@ -3,6 +3,7 @@
 //
 #include <SFML/Graphics.hpp>
 #include "headers/grid.hpp"
+#include <string>
 
 
 
@@ -19,8 +20,17 @@ int main() {
     myGrid.setPosition(0, 800);
     myGrid.setScale(sf::Vector2f(80,-80));
 
+    //Image used to store output
+    sf::Image screenshot;
 
+    //Image name, that will be appended to
+    std::string folderLocaiton = "output/";
+
+    //Clock used to track when to output next reading
     sf::Clock clock;
+
+    //counter to check how many readings have been done
+    int counter = 0;
 
     // run the program as long as the window is open
     while (window.isOpen())
@@ -59,6 +69,9 @@ int main() {
         if(clock.getElapsedTime().asSeconds() > 2){
             myGrid.updateGrid();
             clock.restart();
+            screenshot = window.capture();
+            screenshot.saveToFile(folderLocaiton + std::to_string(counter) + ".png" );
+            counter++;
         }
 
         // clear the window with black color
@@ -70,6 +83,11 @@ int main() {
 
         // end the current frame
         window.display();
+
+        if(counter >= 41)
+            break;
+
+
     }
 
 

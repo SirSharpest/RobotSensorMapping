@@ -19,9 +19,7 @@ private:
 
     sf::VertexArray straightLineReadings;
     sf::VertexArray boxesOnScreen;
-
     sf::VertexArray gridMarkings;
-
 
     dataManager data; // Object used to retrieve data
 
