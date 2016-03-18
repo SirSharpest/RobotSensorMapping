@@ -30,16 +30,11 @@ void dataManager::readData(std::string posesFile, std::string rangesFile) {
 
         toProcess.push(sensorData(s0, s1, s2, s3, s4, s5, s6, s7,
         posX, posY, angle));
-
-
     }
-
 
 }
 
-std::vector< sf::Vertex > dataManager::getNextReading() {
-
-
+std::vector< sf::Vertex > dataManager::getNextObjects() {
     std::vector<sf::Vertex> tmpLines;
 
     //This is the sensor readings adjusted for angle
@@ -48,6 +43,36 @@ std::vector< sf::Vertex > dataManager::getNextReading() {
     //Need to compute each reading to take into account position of the robot
     for(uint i = 0; i < tmpVect.size(); i++){
 
+        if(tmpVect[i] > 2.5f)
+            continue;
+
+        sf::Vector2f coords;
+
+        coords.x = (float) (toProcess.front().getPos().x + tmpVect[i] * cos( (M_PI / 180 * ((i * 45)))
+                                                                             + (M_PI / 180 *  toProcess.front().getAngle())) );
+
+        coords.y = (float) (toProcess.front().getPos().y + tmpVect[i] * sin((M_PI / 180 * ((i * 45))) +
+                                                                            (M_PI / 180 * toProcess.front().getAngle())) );
+
+        sf::Vertex endPoint(coords);
+        endPoint.color = sf::Color::Green;
+
+        tmpLines.push_back(endPoint);
+        tmpLines.push_back(endPoint);
+
+    }
+
+    return tmpLines;
+}
+
+std::vector<sf::Vertex> dataManager::getNextOccupiedSquares() {
+    std::vector<sf::Vertex> tmpLines;
+
+    //This is the sensor readings adjusted for angle
+    std::vector<float> tmpVect = toProcess.front().getSensors();
+
+    //Need to compute each reading to take into account position of the robot
+    for(uint i = 0; i < tmpVect.size(); i++){
 
         //Need to add starting point first each time
         sf::Vertex startPoint(sf::Vector2f(toProcess.front().getPos().x, toProcess.front().getPos().y));
@@ -80,26 +105,33 @@ std::vector< sf::Vertex > dataManager::getNextReading() {
 
             }
 
-
         }
 
         coords.x = (float) (toProcess.front().getPos().x + tmpVect[i] * cos( (M_PI / 180 * ((i * 45)))
                                                                              + (M_PI / 180 *  toProcess.front().getAngle())) );
 
         coords.y = (float) (toProcess.front().getPos().y + tmpVect[i] * sin((M_PI / 180 * ((i * 45))) +
-                                                                                    (M_PI / 180 * toProcess.front().getAngle())) );
+                                                                            (M_PI / 180 * toProcess.front().getAngle())) );
 
         sf::Vertex endPoint(coords);
-        endPoint.color = sf::Color::Red;
-
-
+        endPoint.color = sf::Color::Green;
 
         tmpLines.push_back(startPoint);
         tmpLines.push_back(endPoint);
 
     }
 
+    return tmpLines;
+}
+
+std::vector<std::vector<sf::Vertex >> dataManager::getNextReading() {
+
+    std::vector<std::vector<sf::Vertex>> allData;
+
+    allData.push_back(getNextObjects());
+    allData.push_back(getNextOccupiedSquares());
+
     toProcess.pop();
 
-    return tmpLines;
+    return allData;
 }

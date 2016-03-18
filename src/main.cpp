@@ -3,7 +3,6 @@
 //
 #include <SFML/Graphics.hpp>
 #include "headers/grid.hpp"
-#include <string>
 
 
 
@@ -31,6 +30,8 @@ int main() {
 
     //counter to check how many readings have been done
     int counter = 0;
+
+
 
     // run the program as long as the window is open
     while (window.isOpen())
@@ -60,13 +61,16 @@ int main() {
                 else if(event.key.code == sf::Keyboard::C){
                     myGrid.switchColors();
                 }
+                else if(event.key.code == sf::Keyboard::O){
+                    myGrid.switchOccupied();
+                }
 
 
             }
 
         }
 
-        if(clock.getElapsedTime().asSeconds() > 2){
+        if(clock.getElapsedTime().asSeconds() > 2 && counter < 41){
             myGrid.updateGrid();
             clock.restart();
             screenshot = window.capture();
@@ -83,9 +87,6 @@ int main() {
 
         // end the current frame
         window.display();
-
-        if(counter >= 41)
-            break;
 
 
     }

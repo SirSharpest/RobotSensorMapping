@@ -23,6 +23,18 @@ private:
     //Using a queue of nodes that need to be processed
     std::queue<sensorData> toProcess;
 
+    /*
+     * Gets the next reading to be processed
+     * from the priority queue, that is displaying
+     * detected objects
+     */
+    std::vector< sf::Vertex > getNextObjects();
+
+    /*
+     * Gets the next occupied squares reading
+     */
+    std::vector< sf::Vertex > getNextOccupiedSquares();
+
 
 public:
 
@@ -36,11 +48,13 @@ public:
      */
     void readData(std::string posesFile, std::string rangesFile);
 
+
+
     /*
-     * Gets the next reading to be processed
-     * from the priority queue s
+     * Used to get all the data in one function rather than have
+     * multiple queue systems
      */
-    std::vector< sf::Vertex > getNextReading();
+    std::vector<std::vector<sf::Vertex >> getNextReading();
 
 };
 
